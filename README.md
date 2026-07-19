@@ -18,51 +18,58 @@ Proyek ini dibangun menggunakan framework Laravel dan akan terus berkembang seir
 Ikuti langkah-langkah berikut untuk menjalankan proyek ini di mesin lokal Anda:
 
 1. **Clone repository ini**
-   ```bash
-   git clone https://github.com/USERNAME_ANDA/jarviscamp-praktikum-2026.git
-   cd jarviscamp-praktikum-2026
-   ```
+
+    ```bash
+    git clone https://github.com/Febrian1202/jarviscamp-praktikum-2026.git
+    cd jarviscamp-praktikum-2026
+    ```
 
 2. **Install dependency PHP (Composer)**
-   ```bash
-   composer install
-   ```
+
+    ```bash
+    composer install
+    ```
 
 3. **Install dependency frontend (NPM)**
-   ```bash
-   npm install
-   npm run build
-   ```
+
+    ```bash
+    npm install
+    npm run build
+    ```
 
 4. **Siapkan Environment Variables**
    Salin file `.env.example` menjadi `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-   Lalu buka file `.env` dan sesuaikan konfigurasi database (DB_DATABASE, DB_USERNAME, DB_PASSWORD).
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Lalu buka file `.env` dan sesuaikan konfigurasi database (DB_DATABASE, DB_USERNAME, DB_PASSWORD).
 
 5. **Generate Application Key**
-   ```bash
-   php artisan key:generate
-   ```
+
+    ```bash
+    php artisan key:generate
+    ```
 
 6. **Jalankan Migrasi dan Seeder**
    Untuk membuat tabel database beserta data dummy (Kategori, Komik, dll):
-   ```bash
-   php artisan migrate:fresh --seed
-   ```
+
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
 
 7. **Jalankan Server Development**
-   ```bash
-   php artisan serve
-   ```
-   Aplikasi dapat diakses di `http://localhost:8000`.
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi dapat diakses di `http://localhost:8000`.
 
 ## Progres Mingguan
 
 - **Inisialisasi Awal**: Setup Laravel, model, migration, factory, dan seeder untuk `Kategori` dan `Komik`.
-- *(Akan diupdate seiring berjalannya praktikum)*
+- _(Akan diupdate seiring berjalannya praktikum)_
 
 ## Lisensi
 
-Proyek ini adalah bagian dari pembelajaran di Jarviscamp dan bersifat *open-source* di bawah [Lisensi MIT](https://opensource.org/licenses/MIT).
+Proyek ini adalah bagian dari pembelajaran di Jarviscamp dan bersifat _open-source_ di bawah [Lisensi MIT](https://opensource.org/licenses/MIT).
