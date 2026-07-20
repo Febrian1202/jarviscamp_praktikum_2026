@@ -70,6 +70,24 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di mesin lokal Anda:
 - **Inisialisasi Awal**: Setup Laravel, model, migration, factory, dan seeder untuk `Kategori` dan `Komik`.
 - _(Akan diupdate seiring berjalannya praktikum)_
 
+## Dokumentasi & Hasil Tugas (Kriteria Penilaian)
+
+Bagian ini berisi tangkapan layar (screenshot) sebagai bukti penyelesaian tugas mingguan.
+
+### Week 2: Migration, Factory & Seeder (Tabel Anggota)
+
+- **Hasil Artisan**
+    <!-- Ganti link gambar di bawah dengan path gambar screenshot Anda -->
+    ![Hasil Artisan](.github/docs/artisan.png)
+- **Hasil Migration:**
+    <!-- Ganti link gambar di bawah dengan path gambar screenshot Anda -->
+
+    ![Hasil Migration](.github/docs/migration.png)
+
+- **Hasil Database:**
+    <!-- Ganti link gambar di bawah dengan path gambar screenshot Anda -->
+    ![Hasil Database](.github/docs/db.png)
+
 ## Lisensi
 
 Proyek ini adalah bagian dari pembelajaran di Jarviscamp dan bersifat _open-source_ di bawah [Lisensi MIT](https://opensource.org/licenses/MIT).
