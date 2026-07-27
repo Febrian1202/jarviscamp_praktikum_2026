@@ -19,10 +19,10 @@ class AnggotaFactory extends Factory
     {
         return [
             //
-            "nama" => fake()->name(),
-            "no_hp" => fake()->phoneNumber(),
-            "alamat" => fake()->address(),
-            "tangal_daftar" => fake()->date(),
+            'nama' => fake()->name(),
+            'no_hp' => fake()->phoneNumber(),
+            'alamat' => fake()->address(),
+            'tanggal_daftar' => fake()->date(),
         ];
     }
 }
