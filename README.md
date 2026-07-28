@@ -68,6 +68,8 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di mesin lokal Anda:
 ## Progres Mingguan
 
 - **Inisialisasi Awal**: Setup Laravel, model, migration, factory, dan seeder untuk `Kategori` dan `Komik`.
+- **Week 2**: Migration, Factory & Seeder (Tabel Anggota).
+- **Week 3**: Controller, Route, dan CRUD untuk `Kategori`, `Komik`, dan `Anggota`.
 - _(Akan diupdate seiring berjalannya praktikum)_
 
 ## Dokumentasi & Hasil Tugas (Kriteria Penilaian)
@@ -87,6 +89,23 @@ Bagian ini berisi tangkapan layar (screenshot) sebagai bukti penyelesaian tugas 
 - **Hasil Database:**
     <!-- Ganti link gambar di bawah dengan path gambar screenshot Anda -->
     ![Hasil Database](.github/docs/db.png)
+
+### Week 3: Controller, Route, dan CRUD untuk Anggota
+
+- **Hasil Unit Test**
+  ![Hasil Unit Test](.github/docs/unit-test.png)
+- **Hasil Artisan Route List:**
+  ![Hasil Artisan Route List](.github/docs/route-list.png)
+- **Hasil Test Api (index anggota):**
+  ![Hasil Index Anggota](.github/docs/anggota-index.png)
+- **Hasil Test Api (show anggota):**
+  ![Hasil Show Anggota](.github/docs/anggota-show.png)
+- **Hasil Test Api (store anggota):**
+  ![Hasil Store Anggota](.github/docs/anggota-store.png)
+- **Hasil Test Api (update anggota):**
+  ![Hasil Update Anggota](.github/docs/anggota-update.png)
+- **Hasil Test Api (destroy anggota):**
+  ![Hasil Destroy Anggota](.github/docs/anggota-destroy.png)
 
 ## Lisensi
 
