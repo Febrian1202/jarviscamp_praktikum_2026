@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Komik;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class KomikController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      * Metode Request GET
@@ -15,10 +17,7 @@ class KomikController extends Controller
     {
         $komik = Komik::all();
 
-        return response()->json([
-            "message" => "List of komik",
-            "data" => $komik,
-        ]);
+        return $this->successResponse($komik, "List of komik");
     }
 
     /**
@@ -36,13 +35,7 @@ class KomikController extends Controller
 
         $komik = Komik::create($validated);
 
-        return response()->json(
-            [
-                "message" => "Komik created successfully",
-                "data" => $komik,
-            ],
-            201,
-        );
+        return $this->successResponse($komik, "Sukses membuat data komik", 201);
     }
 
     /**
@@ -53,22 +46,10 @@ class KomikController extends Controller
         $komik = Komik::find($id);
 
         if (!$komik) {
-            return response()->json(
-                [
-                    "message" => "Komik not found",
-                    "data" => null,
-                ],
-                404,
-            );
+            return $this->errorResponse(null, "Komik tidak ditemukan", 404);
         }
 
-        return response()->json(
-            [
-                "message" => "Komik found",
-                "data" => $komik,
-            ],
-            200,
-        );
+        return $this->successResponse($komik, "Komik ditemukan", 200);
     }
 
     /**
@@ -79,13 +60,7 @@ class KomikController extends Controller
         $komik = Komik::find($id);
 
         if (!$komik) {
-            return response()->json(
-                [
-                    "message" => "Komik not found",
-                    "data" => null,
-                ],
-                404,
-            );
+            return $this->errorResponse(null, "Komik tidak ditemukan", 404);
         }
 
         $validated = $request->validate([
@@ -98,11 +73,9 @@ class KomikController extends Controller
 
         $komik->update($validated);
 
-        return response()->json(
-            [
-                "message" => "Komik updated successfully",
-                "data" => $komik,
-            ],
+        return $this->successResponse(
+            $komik,
+            "Data komik berhasil diupdate",
             200,
         );
     }
@@ -115,23 +88,11 @@ class KomikController extends Controller
         $komik = Komik::find($id);
 
         if (!$komik) {
-            return response()->json(
-                [
-                    "message" => "Komik not found",
-                    "data" => null,
-                ],
-                404,
-            );
+            return $this->errorResponse(null, "Komik tidak ditemukan", 404);
         }
 
         $komik->delete();
 
-        return response()->json(
-            [
-                "message" => "Komik deleted successfully",
-                "data" => null,
-            ],
-            200,
-        );
+        return $this->successResponse(null, "Data komik berhasil dihapus", 200);
     }
 }

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
@@ -14,10 +16,7 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::all();
 
-        return response()->json([
-            'message' => 'List Kategori',
-            'data' => $kategori,
-        ]);
+        return $this->successResponse($kategori, "List Kategori", 200);
     }
 
     /**
@@ -26,16 +25,14 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_kategori' => 'required|string|max:255',
+            "nama_kategori" => "required|string|max:255",
         ]);
 
         $kategori = Kategori::create($validated);
 
-        return response()->json(
-            [
-                'message' => 'Kategori berhasil dibuat',
-                'data' => $kategori,
-            ],
+        return $this->successResponse(
+            $kategori,
+            "Kategori berhasil dibuat",
             201,
         );
     }
@@ -47,22 +44,11 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::find($id);
 
-        if (! $kategori) {
-            return response()->json(
-                [
-                    'message' => 'Kategori tidak ditemukan',
-                    'data' => null,
-                ],
-                404
-            );
+        if (!$kategori) {
+            return $this->errorResponse(null, "Kategori tidak ditemukan", 404);
         }
 
-        return response()->json(
-            [
-                'message' => 'Kategori ditemukan',
-                'data' => $kategori,
-            ]
-        );
+        return $this->successResponse($kategori, "Kategori ditemukan", 200);
     }
 
     /**
@@ -72,27 +58,20 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::find($id);
 
-        if (! $kategori) {
-            return response()->json(
-                [
-                    'message' => 'Kategori tidak ditemukan',
-                    'data' => null,
-                ],
-                404
-            );
+        if (!$kategori) {
+            return $this->errorResponse(null, "Kategori tidak ditemukan", 404);
         }
 
         $validated = $request->validate([
-            'nama_kategori' => 'sometimes|string|max:255',
+            "nama_kategori" => "sometimes|string|max:255",
         ]);
 
         $kategori->update($validated);
 
-        return response()->json(
-            [
-                'message' => 'Kategori berhasil di update',
-                'data' => $kategori,
-            ],
+        return $this->successResponse(
+            $kategori,
+            "Kategori berhasil di update",
+            200,
         );
     }
 
@@ -103,23 +82,12 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::find($id);
 
-        if (! $kategori) {
-            return response()->json(
-                [
-                    'message' => 'Kategori tidak ditemukan',
-                    'data' => null,
-                ],
-                404
-            );
+        if (!$kategori) {
+            return $this->errorResponse(null, "Kategori tidak ditemukan", 404);
         }
 
         $kategori->delete();
 
-        return response()->json(
-            [
-                'message' => 'Kategori berhasil dihapus',
-                'data' => null,
-            ],
-        );
+        return $this->successResponse(null, "Kategori berhasil dihapus");
     }
 }

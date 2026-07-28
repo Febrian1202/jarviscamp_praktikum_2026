@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anggota;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
@@ -14,12 +16,7 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::all();
 
-        return response()->json(
-            [
-                'message' => 'List anggota',
-                'data' => $anggota,
-            ]
-        );
+        return $this->successResponse($anggota, "List anggota");
     }
 
     /**
@@ -28,20 +25,18 @@ class AnggotaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'no_hp' => 'required|string|max:15',
-            'alamat' => 'required|string',
-            'tanggal_daftar' => 'required|date',
+            "nama" => "required|string|max:255",
+            "no_hp" => "required|string|max:20",
+            "alamat" => "required|string",
+            "tanggal_daftar" => "required|date",
         ]);
 
         $anggota = Anggota::create($validated);
 
-        return response()->json(
-            [
-                'message' => 'Berhasil membuat data anggota',
-                'data' => $anggota,
-            ],
-            201
+        return $this->successResponse(
+            $anggota,
+            "Berhasil membuat data anggota",
+            201,
         );
     }
 
@@ -52,20 +47,14 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::find($id);
 
-        if (! $anggota) {
-            return response()->json(
-                [
-                    'message' => 'Anggota tidak ditemukan',
-                    'data' => null,
-                ],
-                404
-            );
+        if (!$anggota) {
+            return $this->errorResponse(null, "Anggota tidak ditemukan", 404);
         }
 
-        return response()->json([
-            'message' => 'Berhasil mengambil data anggota',
-            'data' => $anggota,
-        ]);
+        return $this->successResponse(
+            $anggota,
+            "Berhasil mengambil data anggota",
+        );
     }
 
     /**
@@ -75,30 +64,22 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::find($id);
 
-        if (! $anggota) {
-            return response()->json(
-                [
-                    'message' => 'Anggota tidak ditemukan',
-                    'data' => null,
-                ],
-                404
-            );
+        if (!$anggota) {
+            return $this->errorResponse(null, "Anggota tidak ditemukan", 404);
         }
 
         $validated = $request->validate([
-            'nama' => 'sometimes|string|max:255',
-            'no_hp' => 'sometimes|string|max:255',
-            'alamat' => 'sometimes|string',
-            'tanggal_daftar' => 'sometimes|date',
+            "nama" => "sometimes|string|max:255",
+            "no_hp" => "sometimes|string|max:255",
+            "alamat" => "sometimes|string",
+            "tanggal_daftar" => "sometimes|date",
         ]);
 
         $anggota->update($validated);
 
-        return response()->json(
-            [
-                'message' => 'Data anggota berhasil diupdate',
-                'data' => $anggota,
-            ]
+        return $this->successResponse(
+            $anggota,
+            "Data anggota berhasil diupdate",
         );
     }
 
@@ -109,23 +90,12 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::find($id);
 
-        if (! $anggota) {
-            return response()->json(
-                [
-                    'message' => 'Anggota tidak ditemukan',
-                    'data' => null,
-                ],
-                404
-            );
+        if (!$anggota) {
+            return $this->errorResponse(null, "Anggota tidak ditemukan", 404);
         }
 
         $anggota->delete();
 
-        return response()->json(
-            [
-                'message' => 'Anggota berhasil dihapus',
-                'data' => null,
-            ]
-        );
+        return $this->successResponse(null, "Anggota berhasil dihapus");
     }
 }

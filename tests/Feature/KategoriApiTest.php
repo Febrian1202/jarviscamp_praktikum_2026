@@ -15,40 +15,42 @@ class KategoriApiTest extends TestCase
     {
         Kategori::factory()->count(3)->create();
 
-        $response = $this->getJson('/api/kategori');
+        $response = $this->getJson("/api/kategori");
 
-        $response->assertStatus(200)
-                 ->assertJsonStructure([
-                     'message',
-                     'data' => [
-                         '*' => ['id', 'nama_kategori', 'created_at', 'updated_at']
-                     ]
-                 ]);
-        
-        $this->assertCount(3, $response->json('data'));
+        $response->assertStatus(200)->assertJsonStructure([
+            "success",
+            "message",
+            "data" => [
+                "*" => ["id", "nama_kategori", "created_at", "updated_at"],
+            ],
+        ]);
+
+        $this->assertCount(3, $response->json("data"));
     }
 
     public function test_can_create_kategori(): void
     {
-        $payload = ['nama_kategori' => 'Manga Shounen'];
+        $payload = ["nama_kategori" => "Manga Shounen"];
 
-        $response = $this->postJson('/api/kategori', $payload);
+        $response = $this->postJson("/api/kategori", $payload);
 
-        $response->assertStatus(201)
-                 ->assertJsonFragment([
-                     'message' => 'Kategori berhasil dibuat',
-                     'nama_kategori' => 'Manga Shounen'
-                 ]);
+        $response->assertStatus(201)->assertJsonFragment([
+            "message" => "Kategori berhasil dibuat",
+            "nama_kategori" => "Manga Shounen",
+        ]);
 
-        $this->assertDatabaseHas('kategoris', ['nama_kategori' => 'Manga Shounen']);
+        $this->assertDatabaseHas("kategoris", [
+            "nama_kategori" => "Manga Shounen",
+        ]);
     }
 
     public function test_validation_fails_on_create_kategori(): void
     {
-        $response = $this->postJson('/api/kategori', []);
+        $response = $this->postJson("/api/kategori", []);
 
-        $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['nama_kategori']);
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(["nama_kategori"]);
     }
 
     public function test_can_show_kategori(): void
@@ -57,37 +59,36 @@ class KategoriApiTest extends TestCase
 
         $response = $this->getJson("/api/kategori/{$kategori->id}");
 
-        $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'message' => 'Kategori ditemukan',
-                     'id' => $kategori->id
-                 ]);
+        $response->assertStatus(200)->assertJsonFragment([
+            "message" => "Kategori ditemukan",
+            "id" => $kategori->id,
+        ]);
     }
 
     public function test_show_kategori_returns_404(): void
     {
         $response = $this->getJson("/api/kategori/999");
 
-        $response->assertStatus(404)
-                 ->assertJsonFragment(['message' => 'Kategori tidak ditemukan']);
+        $response
+            ->assertStatus(404)
+            ->assertJsonFragment(["message" => "Kategori tidak ditemukan"]);
     }
 
     public function test_can_update_kategori(): void
     {
         $kategori = Kategori::factory()->create();
-        $payload = ['nama_kategori' => 'Manga Shoujo'];
+        $payload = ["nama_kategori" => "Manga Shoujo"];
 
         $response = $this->putJson("/api/kategori/{$kategori->id}", $payload);
 
-        $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'message' => 'Kategori berhasil di update',
-                     'nama_kategori' => 'Manga Shoujo'
-                 ]);
+        $response->assertStatus(200)->assertJsonFragment([
+            "message" => "Kategori berhasil di update",
+            "nama_kategori" => "Manga Shoujo",
+        ]);
 
-        $this->assertDatabaseHas('kategoris', [
-            'id' => $kategori->id,
-            'nama_kategori' => 'Manga Shoujo'
+        $this->assertDatabaseHas("kategoris", [
+            "id" => $kategori->id,
+            "nama_kategori" => "Manga Shoujo",
         ]);
     }
 
@@ -97,9 +98,10 @@ class KategoriApiTest extends TestCase
 
         $response = $this->deleteJson("/api/kategori/{$kategori->id}");
 
-        $response->assertStatus(200)
-                 ->assertJsonFragment(['message' => 'Kategori berhasil dihapus']);
+        $response
+            ->assertStatus(200)
+            ->assertJsonFragment(["message" => "Kategori berhasil dihapus"]);
 
-        $this->assertDatabaseMissing('kategoris', ['id' => $kategori->id]);
+        $this->assertDatabaseMissing("kategoris", ["id" => $kategori->id]);
     }
 }

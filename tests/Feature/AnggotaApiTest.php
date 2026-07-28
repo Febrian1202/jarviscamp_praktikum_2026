@@ -10,7 +10,7 @@ use Tests\TestCase;
 class AnggotaApiTest extends TestCase
 {
     use RefreshDatabase; // Reset database setelah setiap test
-    use WithFaker;       // Untuk generate data fake jika diperlukan
+    use WithFaker; // Untuk generate data fake jika diperlukan
 
     /**
      * Test mendapatkan daftar semua anggota.
@@ -26,6 +26,7 @@ class AnggotaApiTest extends TestCase
         // Assert: Cek status HTTP dan struktur JSON
         $response->assertStatus(200)
                  ->assertJsonStructure([
+                     'success',
                      'message',
                      'data' => [
                          '*' => [
@@ -51,26 +52,25 @@ class AnggotaApiTest extends TestCase
     {
         // Persiapan payload
         $payload = [
-            'nama' => 'Ridaz Riyandi',
-            'no_hp' => '081234567890',
-            'alamat' => 'Jl. Sudirman No. 1',
-            'tanggal_daftar' => '2026-07-21'
+            "nama" => "Ridaz Riyandi",
+            "no_hp" => "081234567890",
+            "alamat" => "Jl. Sudirman No. 1",
+            "tanggal_daftar" => "2026-07-21",
         ];
 
         // Aksi: Request POST ke endpoint store
-        $response = $this->postJson('/api/anggota', $payload);
+        $response = $this->postJson("/api/anggota", $payload);
 
         // Assert: Cek status HTTP dan pesan
-        $response->assertStatus(201)
-                 ->assertJsonFragment([
-                     'message' => 'Berhasil membuat data anggota',
-                     'nama' => 'Ridaz Riyandi'
-                 ]);
+        $response->assertStatus(201)->assertJsonFragment([
+            "message" => "Berhasil membuat data anggota",
+            "nama" => "Ridaz Riyandi",
+        ]);
 
         // Assert: Cek apakah data benar-benar tersimpan di database
-        $this->assertDatabaseHas('anggotas', [
-            'nama' => 'Ridaz Riyandi',
-            'no_hp' => '081234567890'
+        $this->assertDatabaseHas("anggotas", [
+            "nama" => "Ridaz Riyandi",
+            "no_hp" => "081234567890",
         ]);
     }
 
@@ -80,11 +80,17 @@ class AnggotaApiTest extends TestCase
     public function test_validation_fails_on_create_anggota(): void
     {
         // Request POST dengan payload kosong
-        $response = $this->postJson('/api/anggota', []);
+        $response = $this->postJson("/api/anggota", []);
 
         // Assert status 422 (Unprocessable Entity) karena validasi gagal
-        $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['nama', 'no_hp', 'alamat', 'tanggal_daftar']);
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                "nama",
+                "no_hp",
+                "alamat",
+                "tanggal_daftar",
+            ]);
     }
 
     /**
@@ -99,12 +105,11 @@ class AnggotaApiTest extends TestCase
         $response = $this->getJson("/api/anggota/{$anggota->id}");
 
         // Assert: Status OK dan data cocok
-        $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'message' => 'Berhasil mengambil data anggota',
-                     'id' => $anggota->id,
-                     'nama' => $anggota->nama
-                 ]);
+        $response->assertStatus(200)->assertJsonFragment([
+            "message" => "Berhasil mengambil data anggota",
+            "id" => $anggota->id,
+            "nama" => $anggota->nama,
+        ]);
     }
 
     /**
@@ -116,11 +121,10 @@ class AnggotaApiTest extends TestCase
         $response = $this->getJson("/api/anggota/999");
 
         // Assert: Status 404 Not Found
-        $response->assertStatus(404)
-                 ->assertJsonFragment([
-                     'message' => 'Anggota tidak ditemukan',
-                     'data' => null
-                 ]);
+        $response->assertStatus(404)->assertJsonFragment([
+            "message" => "Anggota tidak ditemukan",
+            "data" => null,
+        ]);
     }
 
     /**
@@ -133,25 +137,24 @@ class AnggotaApiTest extends TestCase
 
         // Payload data baru (hanya update nama dan nomor HP)
         $payload = [
-            'nama' => 'Nama Terupdate',
-            'no_hp' => '08999999999'
+            "nama" => "Nama Terupdate",
+            "no_hp" => "08999999999",
         ];
 
         // Aksi: Request PUT ke endpoint update
         $response = $this->putJson("/api/anggota/{$anggota->id}", $payload);
 
         // Assert: Status OK dan respons JSON sesuai
-        $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'message' => 'Data anggota berhasil diupdate',
-                     'nama' => 'Nama Terupdate'
-                 ]);
+        $response->assertStatus(200)->assertJsonFragment([
+            "message" => "Data anggota berhasil diupdate",
+            "nama" => "Nama Terupdate",
+        ]);
 
         // Assert: Pastikan data di database juga berubah
-        $this->assertDatabaseHas('anggotas', [
-            'id' => $anggota->id,
-            'nama' => 'Nama Terupdate',
-            'no_hp' => '08999999999'
+        $this->assertDatabaseHas("anggotas", [
+            "id" => $anggota->id,
+            "nama" => "Nama Terupdate",
+            "no_hp" => "08999999999",
         ]);
     }
 
@@ -167,15 +170,14 @@ class AnggotaApiTest extends TestCase
         $response = $this->deleteJson("/api/anggota/{$anggota->id}");
 
         // Assert: Status OK dan respons sesuai
-        $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'message' => 'Anggota berhasil dihapus',
-                     'data' => null
-                 ]);
+        $response->assertStatus(200)->assertJsonFragment([
+            "message" => "Anggota berhasil dihapus",
+            "success" => true,
+        ]);
 
         // Assert: Pastikan data sudah hilang dari database
-        $this->assertDatabaseMissing('anggotas', [
-            'id' => $anggota->id
+        $this->assertDatabaseMissing("anggotas", [
+            "id" => $anggota->id,
         ]);
     }
 }
