@@ -35,8 +35,6 @@ class AnggotaApiTest extends TestCase
                              'no_hp',
                              'alamat',
                              'tanggal_daftar',
-                             'created_at',
-                             'updated_at'
                          ]
                      ]
                  ]);
@@ -85,11 +83,12 @@ class AnggotaApiTest extends TestCase
         // Assert status 422 (Unprocessable Entity) karena validasi gagal
         $response
             ->assertStatus(422)
-            ->assertJsonValidationErrors([
-                "nama",
-                "no_hp",
-                "alamat",
-                "tanggal_daftar",
+            ->assertJsonFragment([
+                "success" => false,
+                "message" => "Validasi data gagal",
+            ])
+            ->assertJsonStructure([
+                "data" => ["nama", "no_hp", "alamat", "tanggal_daftar"],
             ]);
     }
 

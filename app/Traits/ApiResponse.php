@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 /**
  * Format untuk response API
  */

@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Requests\Kategori;
+
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+use Override;
+
+class StoreKategoriRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            "nama_kategori" => ["required", "string", "max:255", "min:1"],
+        ];
+    }
+
+    /**
+     * Custom message error
+     */
+    #[Override]
+    public function messages()
+    {
+        return [
+            "nama_kategori.required" => "Nama Kategori harus diisi",
+            "nama_kategori.string" =>
+                "Nama Kategori harus berupa string/karakter",
+            "nama_kategori.max" => "Karakter tidak boleh melebihi 255 karakter",
+            "nama_kategori.min" => "Nama Kategori tidak boleh kosong",
+        ];
+    }
+}

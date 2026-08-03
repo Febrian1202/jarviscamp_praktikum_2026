@@ -21,7 +21,7 @@ class KategoriApiTest extends TestCase
             "success",
             "message",
             "data" => [
-                "*" => ["id", "nama_kategori", "created_at", "updated_at"],
+                "*" => ["id", "nama_kategori"],
             ],
         ]);
 
@@ -50,7 +50,13 @@ class KategoriApiTest extends TestCase
 
         $response
             ->assertStatus(422)
-            ->assertJsonValidationErrors(["nama_kategori"]);
+            ->assertJsonFragment([
+                "success" => false,
+                "message" => "Validasi data gagal",
+            ])
+            ->assertJsonStructure([
+                "data" => ["nama_kategori"],
+            ]);
     }
 
     public function test_can_show_kategori(): void

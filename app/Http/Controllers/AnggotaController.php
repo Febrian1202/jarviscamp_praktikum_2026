@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Anggota\StoreAnggotaRequest;
+use App\Http\Requests\Anggota\UpdateAnggotaRequest;
+use App\Http\Resources\AnggotaResource;
 use App\Models\Anggota;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
 {
@@ -16,25 +18,23 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::all();
 
-        return $this->successResponse($anggota, "List anggota");
+        return $this->successResponse(
+            AnggotaResource::collection($anggota),
+            "List anggota",
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAnggotaRequest $request)
     {
-        $validated = $request->validate([
-            "nama" => "required|string|max:255",
-            "no_hp" => "required|string|max:20",
-            "alamat" => "required|string",
-            "tanggal_daftar" => "required|date",
-        ]);
+        $validated = $request->validated();
 
         $anggota = Anggota::create($validated);
 
         return $this->successResponse(
-            $anggota,
+            new AnggotaResource($anggota),
             "Berhasil membuat data anggota",
             201,
         );
@@ -45,14 +45,10 @@ class AnggotaController extends Controller
      */
     public function show(string $id)
     {
-        $anggota = Anggota::find($id);
-
-        if (!$anggota) {
-            return $this->errorResponse(null, "Anggota tidak ditemukan", 404);
-        }
+        $anggota = Anggota::findOrFail($id);
 
         return $this->successResponse(
-            $anggota,
+            new AnggotaResource($anggota),
             "Berhasil mengambil data anggota",
         );
     }
@@ -60,25 +56,16 @@ class AnggotaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAnggotaRequest $request, string $id)
     {
-        $anggota = Anggota::find($id);
+        $anggota = Anggota::findOrFail($id);
 
-        if (!$anggota) {
-            return $this->errorResponse(null, "Anggota tidak ditemukan", 404);
-        }
-
-        $validated = $request->validate([
-            "nama" => "sometimes|string|max:255",
-            "no_hp" => "sometimes|string|max:255",
-            "alamat" => "sometimes|string",
-            "tanggal_daftar" => "sometimes|date",
-        ]);
+        $validated = $request->validated();
 
         $anggota->update($validated);
 
         return $this->successResponse(
-            $anggota,
+            new AnggotaResource($anggota),
             "Data anggota berhasil diupdate",
         );
     }
@@ -88,11 +75,7 @@ class AnggotaController extends Controller
      */
     public function destroy(string $id)
     {
-        $anggota = Anggota::find($id);
-
-        if (!$anggota) {
-            return $this->errorResponse(null, "Anggota tidak ditemukan", 404);
-        }
+        $anggota = Anggota::findOrFail($id);
 
         $anggota->delete();
 

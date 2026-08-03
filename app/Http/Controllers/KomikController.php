@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Komik\StoreKomikRequest;
+use App\Http\Requests\Komik\UpdateKomikRequest;
+use App\Http\Resources\KomikResource;
 use App\Models\Komik;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -17,25 +20,23 @@ class KomikController extends Controller
     {
         $komik = Komik::all();
 
-        return $this->successResponse($komik, "List of komik");
+        $data = KomikResource::collection($komik);
+
+        return $this->successResponse($data, "List of komik");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreKomikRequest $request)
     {
-        $validated = $request->validate([
-            "judul" => "required|string|max:255",
-            "kategori_id" => "required|integer|min:0",
-            "stok" => "required|integer|min:0",
-            "penulis" => "required|string|max:255",
-            "tanggal_terbit" => "required|date",
-        ]);
+        $validated = $request->validated();
 
         $komik = Komik::create($validated);
 
-        return $this->successResponse($komik, "Sukses membuat data komik", 201);
+        $data = new KomikResource($komik);
+
+        return $this->successResponse($data, "Sukses membuat data komik", 201);
     }
 
     /**
@@ -43,38 +44,28 @@ class KomikController extends Controller
      */
     public function show(string $id)
     {
-        $komik = Komik::find($id);
+        $komik = Komik::findOrFail($id);
 
-        if (!$komik) {
-            return $this->errorResponse(null, "Komik tidak ditemukan", 404);
-        }
+        $data = new KomikResource($komik);
 
-        return $this->successResponse($komik, "Komik ditemukan", 200);
+        return $this->successResponse($data, "Komik ditemukan", 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateKomikRequest $request, string $id)
     {
-        $komik = Komik::find($id);
+        $komik = Komik::findOrFail($id);
 
-        if (!$komik) {
-            return $this->errorResponse(null, "Komik tidak ditemukan", 404);
-        }
-
-        $validated = $request->validate([
-            "judul" => "sometimes|string|max:255",
-            "kategori_id" => "sometimes|integer|min:0",
-            "stok" => "sometimes|integer|min:0",
-            "penulis" => "sometimes|string|max:255",
-            "tanggal_terbit" => "sometimes|date",
-        ]);
+        $validated = $request->validated();
 
         $komik->update($validated);
 
+        $data = new KomikResource($komik);
+
         return $this->successResponse(
-            $komik,
+            $data,
             "Data komik berhasil diupdate",
             200,
         );
@@ -85,11 +76,7 @@ class KomikController extends Controller
      */
     public function destroy(string $id)
     {
-        $komik = Komik::find($id);
-
-        if (!$komik) {
-            return $this->errorResponse(null, "Komik tidak ditemukan", 404);
-        }
+        $komik = Komik::findOrFail($id);
 
         $komik->delete();
 

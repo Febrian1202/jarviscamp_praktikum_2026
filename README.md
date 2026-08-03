@@ -70,6 +70,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di mesin lokal Anda:
 - **Inisialisasi Awal**: Setup Laravel, model, migration, factory, dan seeder untuk `Kategori` dan `Komik`.
 - **Week 2**: Migration, Factory & Seeder.
 - **Week 3**: Controller, Route, dan CRUD untuk `Kategori`, `Komik`, dan `Anggota`.
+- **Week 4**: Form Request, API Resource, dan Custom Exception Handling untuk `Anggota`.
 - _(Akan diupdate seiring berjalannya praktikum)_
 
 ## Dokumentasi & Hasil Tugas (Kriteria Penilaian)
@@ -106,6 +107,15 @@ Bagian ini berisi tangkapan layar (screenshot) sebagai bukti penyelesaian tugas 
   ![Hasil Update Anggota](.github/docs/anggota-update.png)
 - **Hasil Test Api (destroy anggota):**
   ![Hasil Destroy Anggota](.github/docs/anggota-destroy.png)
+
+### Week 4: Form Request, API Resource, dan Custom Exception Handling
+
+- **Hasil Test Validasi Gagal (422 Unprocessable Entity):**
+  ![Hasil Validasi Gagal 422](.github/docs/422.png)
+- **Hasil Test Store Sukses dengan API Resource:**
+  ![Hasil Store Sukses](.github/docs/store-success.png)
+- **Hasil Test Custom Exception Handling (404 Not Found):**
+  ![Hasil Exception 404](.github/docs/404.png)
 
 ## Lisensi
 

@@ -28,12 +28,10 @@ class KomikApiTest extends TestCase
             "data" => [
                 "*" => [
                     "id",
-                    "judul",
+                    "judul_komik",
                     "penulis",
-                    "kategori_id",
-                    "stok",
-                    "status",
-                    "file_pdf",
+                    "status_ketersediaan",
+                    "link_pdf",
                 ],
             ],
         ]);
@@ -57,7 +55,7 @@ class KomikApiTest extends TestCase
 
         $response->assertStatus(201)->assertJsonFragment([
             "message" => "Sukses membuat data komik",
-            "judul" => "One Piece Vol 1",
+            "judul_komik" => "One Piece Vol 1",
         ]);
 
         $this->assertDatabaseHas("komiks", [
@@ -72,12 +70,18 @@ class KomikApiTest extends TestCase
 
         $response
             ->assertStatus(422)
-            ->assertJsonValidationErrors([
-                "judul",
-                "kategori_id",
-                "stok",
-                "penulis",
-                "tanggal_terbit",
+            ->assertJsonFragment([
+                "success" => false,
+                "message" => "Validasi data gagal",
+            ])
+            ->assertJsonStructure([
+                "data" => [
+                    "judul",
+                    "kategori_id",
+                    "stok",
+                    "penulis",
+                    "tanggal_terbit",
+                ],
             ]);
     }
 
@@ -121,7 +125,7 @@ class KomikApiTest extends TestCase
 
         $response->assertStatus(200)->assertJsonFragment([
             "message" => "Data komik berhasil diupdate",
-            "judul" => "Judul Komik Terupdate",
+            "judul_komik" => "Judul Komik Terupdate",
         ]);
 
         $this->assertDatabaseHas("komiks", [
