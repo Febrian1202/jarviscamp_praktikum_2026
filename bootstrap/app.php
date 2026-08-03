@@ -30,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ) {
                 $modelName = "Data";
 
+                /** @var ModelNotFoundException $exception */
                 $exception =
                     $e instanceof ModelNotFoundException
                         ? $e
