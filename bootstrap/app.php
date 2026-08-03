@@ -28,10 +28,25 @@ return Application::configure(basePath: dirname(__DIR__))
                 $e instanceof ModelNotFoundException ||
                 $e->getPrevious() instanceof ModelNotFoundException
             ) {
+                $modelName = "Data";
+
+                $exception =
+                    $e instanceof ModelNotFoundException
+                        ? $e
+                        : $e->getPrevious();
+
+                if (str_contains($exception->getModel(), "Anggota")) {
+                    $modelName = "Anggota";
+                } elseif (str_contains($exception->getModel(), "Kategori")) {
+                    $modelName = "Kategori";
+                } elseif (str_contains($exception->getModel(), "Komik")) {
+                    $modelName = "Komik";
+                }
+
                 return response()->json(
                     [
                         "success" => false,
-                        "message" => "Data tidak ditemukan",
+                        "message" => "{$modelName} tidak ditemukan",
                         "data" => null,
                     ],
                     404,
