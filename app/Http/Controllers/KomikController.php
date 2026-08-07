@@ -7,11 +7,11 @@ use App\Http\Requests\Komik\UpdateKomikRequest;
 use App\Http\Resources\KomikResource;
 use App\Models\Komik;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class KomikController extends Controller
 {
     use ApiResponse;
+
     /**
      * Display a listing of the resource.
      * Metode Request GET
@@ -22,7 +22,7 @@ class KomikController extends Controller
 
         $data = KomikResource::collection($komik);
 
-        return $this->successResponse($data, "List of komik");
+        return $this->successResponse($data, 'List of komik');
     }
 
     /**
@@ -36,7 +36,7 @@ class KomikController extends Controller
 
         $data = new KomikResource($komik);
 
-        return $this->successResponse($data, "Sukses membuat data komik", 201);
+        return $this->successResponse($data, 'Sukses membuat data komik', 201);
     }
 
     /**
@@ -48,7 +48,7 @@ class KomikController extends Controller
 
         $data = new KomikResource($komik);
 
-        return $this->successResponse($data, "Komik ditemukan", 200);
+        return $this->successResponse($data, 'Komik ditemukan', 200);
     }
 
     /**
@@ -66,7 +66,7 @@ class KomikController extends Controller
 
         return $this->successResponse(
             $data,
-            "Data komik berhasil diupdate",
+            'Data komik berhasil diupdate',
             200,
         );
     }
@@ -80,6 +80,6 @@ class KomikController extends Controller
 
         $komik->delete();
 
-        return $this->successResponse(null, "Data komik berhasil dihapus", 200);
+        return $this->successResponse(null, 'Data komik berhasil dihapus', 200);
     }
 }
