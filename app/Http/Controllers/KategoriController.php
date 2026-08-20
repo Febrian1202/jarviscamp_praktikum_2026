@@ -5,23 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Kategori\StoreKategoriRequest;
 use App\Http\Requests\Kategori\UpdateKategoriRequest;
 use App\Http\Resources\KategoriResource;
+use App\Interfaces\KategoriServiceInterface;
 use App\Models\Kategori;
 use App\Traits\ApiResponse;
 
 class KategoriController extends Controller
 {
     use ApiResponse;
+
+    public function __construct(private KategoriServiceInterface $kategoriService) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $kategori = Kategori::all();
+        $kategori = $this->kategoriService->getAllKategori();
 
         return $this->successResponse(
             KategoriResource::collection($kategori),
-            "List Kategori",
-            200,
+            'List Kategori',
         );
     }
 
@@ -30,13 +33,13 @@ class KategoriController extends Controller
      */
     public function store(StoreKategoriRequest $request)
     {
-        $validated = $request->validated();
-
-        $kategori = Kategori::create($validated);
+        $kategori = $this->kategoriService->createKategori(
+            $request->validated(),
+        );
 
         return $this->successResponse(
             new KategoriResource($kategori),
-            "Kategori berhasil dibuat",
+            'Kategori berhasil dibuat',
             201,
         );
     }
@@ -44,13 +47,11 @@ class KategoriController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Kategori $kategori)
     {
-        $kategori = Kategori::findOrFail($id);
-
         return $this->successResponse(
             new KategoriResource($kategori),
-            "Kategori ditemukan",
+            'Kategori ditemukan',
             200,
         );
     }
@@ -58,17 +59,16 @@ class KategoriController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKategoriRequest $request, string $id)
+    public function update(UpdateKategoriRequest $request, Kategori $kategori)
     {
-        $kategori = Kategori::findOrFail($id);
-
-        $validated = $request->validated();
-
-        $kategori->update($validated);
+        $kategori = $this->kategoriService->updateKategori(
+            $kategori,
+            $request->validated(),
+        );
 
         return $this->successResponse(
             new KategoriResource($kategori),
-            "Kategori berhasil di update",
+            'Kategori berhasil di update',
             200,
         );
     }
@@ -76,12 +76,10 @@ class KategoriController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Kategori $kategori)
     {
-        $kategori = Kategori::findOrFail($id);
+        $this->kategoriService->deleteKategori($kategori);
 
-        $kategori->delete();
-
-        return $this->successResponse(null, "Kategori berhasil dihapus");
+        return $this->successResponse(null, 'Kategori berhasil dihapus');
     }
 }

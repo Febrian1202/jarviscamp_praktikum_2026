@@ -5,22 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Anggota\StoreAnggotaRequest;
 use App\Http\Requests\Anggota\UpdateAnggotaRequest;
 use App\Http\Resources\AnggotaResource;
+use App\Interfaces\AnggotaServiceInterface;
 use App\Models\Anggota;
 use App\Traits\ApiResponse;
 
 class AnggotaController extends Controller
 {
     use ApiResponse;
+
+    public function __construct(private AnggotaServiceInterface $anggotaService) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $anggota = Anggota::all();
+        $anggota = $this->anggotaService->getAllAnggota();
 
         return $this->successResponse(
             AnggotaResource::collection($anggota),
-            "List anggota",
+            'List anggota',
         );
     }
 
@@ -29,13 +33,11 @@ class AnggotaController extends Controller
      */
     public function store(StoreAnggotaRequest $request)
     {
-        $validated = $request->validated();
-
-        $anggota = Anggota::create($validated);
+        $anggota = $this->anggotaService->createAnggota($request->validated());
 
         return $this->successResponse(
             new AnggotaResource($anggota),
-            "Berhasil membuat data anggota",
+            'Berhasil membuat data anggota',
             201,
         );
     }
@@ -43,42 +45,37 @@ class AnggotaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Anggota $anggota)
     {
-        $anggota = Anggota::findOrFail($id);
-
         return $this->successResponse(
             new AnggotaResource($anggota),
-            "Berhasil mengambil data anggota",
+            'Berhasil mengambil data anggota',
         );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAnggotaRequest $request, string $id)
+    public function update(UpdateAnggotaRequest $request, Anggota $anggota)
     {
-        $anggota = Anggota::findOrFail($id);
-
-        $validated = $request->validated();
-
-        $anggota->update($validated);
+        $anggota = $this->anggotaService->updateAnggota(
+            $anggota,
+            $request->validated(),
+        );
 
         return $this->successResponse(
             new AnggotaResource($anggota),
-            "Data anggota berhasil diupdate",
+            'Data anggota berhasil diupdate',
         );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Anggota $anggota)
     {
-        $anggota = Anggota::findOrFail($id);
+        $this->anggotaService->deleteAnggota($anggota);
 
-        $anggota->delete();
-
-        return $this->successResponse(null, "Anggota berhasil dihapus");
+        return $this->successResponse(null, 'Anggota berhasil dihapus');
     }
 }

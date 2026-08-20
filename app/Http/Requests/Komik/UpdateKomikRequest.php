@@ -25,7 +25,7 @@ class UpdateKomikRequest extends FormRequest
     {
         return [
             "judul" => ["sometimes", "string", "max:255", "min:1"],
-            "kategori_id" => ["sometimes", "exists:kategoris,id"],
+            "kategori_id" => ["sometimes", "integer", "exists:kategoris,id"],
             "stok" => ["sometimes", "integer", "min:0"],
             "status" => ["sometimes", "string", "in:available,unavailable"],
             "file_pdf" => ["nullable", "file", "mimes:pdf", "max:2048"],
@@ -46,6 +46,7 @@ class UpdateKomikRequest extends FormRequest
             "judul.string" => "Judul harus berupa string/karakter",
             "judul.min" => "Judul tidak boleh kosong",
 
+            "kategori_id.integer" => "Kategori harus berupa angka",
             "kategori_id.exists" => "Kategori tidak valid",
 
             "stok.integer" => "Stok harus berupa angka",

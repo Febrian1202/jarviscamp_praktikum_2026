@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 /**
  * Format untuk response API
  */
@@ -13,15 +11,15 @@ trait ApiResponse
      * Format untuk response Sukses
      */
     protected function successResponse(
-        $data = null,
-        string $message = "Success",
+        mixed $data = null,
+        string $message = 'Berhasil',
         int $code = 200,
     ) {
         return response()->json(
             [
-                "success" => true,
-                "message" => $message,
-                "data" => $data,
+                'success' => true,
+                'message' => $message,
+                'data' => $data,
             ],
             $code,
         );
@@ -32,14 +30,14 @@ trait ApiResponse
      */
     protected function errorResponse(
         $data = null,
-        string $message = "Error",
+        string $message = 'Error',
         int $code = 400,
     ) {
         return response()->json(
             [
-                "success" => false,
-                "message" => $message,
-                "data" => $data,
+                'success' => false,
+                'message' => $message,
+                'data' => $data,
             ],
             $code,
         );

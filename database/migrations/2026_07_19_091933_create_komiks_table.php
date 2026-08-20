@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string("judul");
             $table->string("penulis");
-            $table->unsignedBigInteger("kategori_id");
+            $table->foreignId("kategori_id")->constrained("kategoris");
             $table->integer("stok")->default(0);
             $table
                 ->enum("status", ["available", "unavailable"])

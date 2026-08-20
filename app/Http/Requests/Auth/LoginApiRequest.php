@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Kategori;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Override;
 
-class StoreKategoriRequest extends FormRequest
+class LoginApiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,22 +23,20 @@ class StoreKategoriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nama_kategori" => ["required", "string", "max:100", "min:1"],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 
-    /**
-     * Custom message error
-     */
-    #[Override]
     public function messages()
     {
         return [
-            "nama_kategori.required" => "Nama Kategori harus diisi",
-            "nama_kategori.string" =>
-                "Nama Kategori harus berupa string/karakter",
-            "nama_kategori.max" => "Karakter tidak boleh melebihi 100 karakter",
-            "nama_kategori.min" => "Nama Kategori tidak boleh kosong",
+            'email.required' => "Email tidak boleh kosong",
+            'email.email' => "Email tidak valid",
+
+            'password.required' => "Password tidak boleh kosong",
+            'password.string' => "Password harus berupa karakter/string",
+            'password.min' => "Password minimal harus berjumlah 8 karakter",
         ];
     }
 }

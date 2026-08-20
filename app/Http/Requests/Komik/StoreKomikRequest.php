@@ -25,7 +25,7 @@ class StoreKomikRequest extends FormRequest
     {
         return [
             "judul" => ["required", "string", "max:255", "min:1"],
-            "kategori_id" => ["required", "exists:kategoris,id"],
+            "kategori_id" => ["required", "integer", "exists:kategoris,id"],
             "stok" => ["required", "integer", "min:0"],
             "penulis" => ["required", "string", "max:255", "min:1"],
             "file_pdf" => ["nullable", "file", "mimes:pdf", "max:2048"],
@@ -47,6 +47,7 @@ class StoreKomikRequest extends FormRequest
             "judul.string" => "Judul harus berupa string/karakter",
 
             "kategori_id.required" => "Kategori harus dipilih",
+            "kategori_id.integer" => "Kategori harus berupa angka",
             "kategori_id.exists" => "Kategori tidak valid",
 
             "stok.required" => "Stok harus diisi",

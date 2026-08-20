@@ -14,6 +14,6 @@ class KomikSeeder extends Seeder
     public function run(): void
     {
         //
-        Komik::factory()->count(20)->create();
+        Komik::factory()->count(15)->create();
     }
 }

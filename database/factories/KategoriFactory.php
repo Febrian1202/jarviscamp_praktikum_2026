@@ -18,18 +18,7 @@ class KategoriFactory extends Factory
     public function definition(): array
     {
         return [
-            "nama_kategori" => fake()->randomElement([
-                "Action",
-                "Romance",
-                "Comedy",
-                "Horror",
-                "Slice of Life",
-                "Fantasy",
-                "Mystery",
-                "Sports",
-                "Sci-fi",
-                "Drama",
-            ]),
+            'nama_kategori' => fake()->unique()->words(2, true)
         ];
     }
 }

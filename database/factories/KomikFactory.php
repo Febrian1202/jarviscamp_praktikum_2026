@@ -20,13 +20,13 @@ class KomikFactory extends Factory
     {
         return [
             //
-            "judul" => fake()->words(3, true),
+            "judul" => fake()->sentence(3),
             "penulis" => fake()->name(),
             "kategori_id" =>
                 Kategori::inRandomOrder()->first()?->id ?? Kategori::factory(),
-            "stok" => fake()->numberBetween(0, 10),
+            "stok" => fake()->numberBetween(0, 20),
             "status" => fake()->randomElement(["available", "unavailable"]),
-            "file_pdf" => null,
+            "file_pdf" => fake()->optional(0.5)->passthrough(fake()->word() . '.pdf'),
         ];
     }
 }

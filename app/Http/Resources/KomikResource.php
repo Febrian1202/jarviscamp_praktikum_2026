@@ -16,10 +16,15 @@ class KomikResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "judul_komik" => $this->judul,
+            "judul" => $this->judul,
             "penulis" => $this->penulis,
-            "status_ketersediaan" => $this->status,
-            "link_pdf" => $this->file_pdf,
+            "kategori_id" => $this->kategori_id,
+            "nama_kategori" => $this->whenLoaded("kategori", fn () => $this->kategori->nama_kategori),
+            "stok" => $this->stok,
+            "status" => $this->status,
+            "file_pdf" => $this->file_pdf,
+            "created_at" => $this->created_at?->format("Y-m-d H:i:s"),
+            "updated_at"=> $this->updated_at?->format("Y-m-d H:i:s"),
         ];
     }
 }

@@ -24,7 +24,7 @@ class UpdateKategoriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nama_kategori" => ["sometimes", "string", "max:255", "min:1"],
+            "nama_kategori" => ["sometimes", "string", "max:100", "min:1"],
         ];
     }
 
@@ -37,7 +37,7 @@ class UpdateKategoriRequest extends FormRequest
         return [
             "nama_kategori.string" =>
                 "Nama Kategori harus berupa string/karakter",
-            "nama_kategori.max" => "Karakter tidak boleh melebihi 255 karakter",
+            "nama_kategori.max" => "Karakter tidak boleh melebihi 100 karakter",
             "nama_kategori.min" => "Nama Kategori tidak boleh kosong",
         ];
     }

@@ -2,17 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Anggota;
+use App\Models\Peminjaman;
 use Illuminate\Database\Seeder;
 
-class AnggotaSeeder extends Seeder
+class PeminjamanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        //
-        Anggota::factory()->count(20)->create();
+        Peminjaman::factory(20)->create();
     }
 }
