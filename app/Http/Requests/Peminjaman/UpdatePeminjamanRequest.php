@@ -12,7 +12,7 @@ class UpdatePeminjamanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,10 +23,10 @@ class UpdatePeminjamanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'anggota_id' => ['sometimes', 'integer', 'exists:anggota,id'], // |exists:anggota,id|exists:anggota,id"],
-            'komik_id' => ['sometimes', 'integer', 'exists:komik,id'],
-            'tanggal_pinjam' => ['sometimes', 'date'],
-            'tanggal_kembali' => ['nullable', 'date', 'after_or_equal:tanggal_pinjam'],
+            'anggota_id' => ['sometimes', 'integer', 'exists:anggotas,id'],
+            'komik_id' => ['sometimes', 'integer', 'exists:komiks,id'],
+            'tanggal_peminjaman' => ['sometimes', 'date'],
+            'tanggal_kembali' => ['nullable', 'date', 'after_or_equal:tanggal_peminjaman'],
             'status' => ['sometimes', 'in:dipinjam,dikembalikan,telat'],
         ];
     }
@@ -40,7 +40,7 @@ class UpdatePeminjamanRequest extends FormRequest
             'komik_id.integer' => 'ID Komik harus berupa angka',
             'komik_id.exists' => 'ID Komik tidak valid',
 
-            'tanggal_pinjam.date' => 'Tanggal Pinjam tidak valid',
+            'tanggal_peminjaman.date' => 'Tanggal Pinjam tidak valid',
 
             'tanggal_kembali.date' => 'Tanggal Kembali tidak valid',
             'tanggal_kembali.after_or_equal' => 'Tanggal Kembali tidak boleh sebelum tanggal pinjam',

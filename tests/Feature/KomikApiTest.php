@@ -12,6 +12,13 @@ class KomikApiTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        \App\Models\User::factory()->create();
+        $this->actingAs(\App\Models\User::first());
+    }
+
     public function test_can_get_all_komik(): void
     {
         // Komik membutuhkan Kategori, jadi kita buat dulu
@@ -28,10 +35,10 @@ class KomikApiTest extends TestCase
             "data" => [
                 "*" => [
                     "id",
-                    "judul_komik",
+                    "judul",
                     "penulis",
-                    "status_ketersediaan",
-                    "link_pdf",
+                    "status",
+                    "file_pdf",
                 ],
             ],
         ]);
@@ -55,7 +62,7 @@ class KomikApiTest extends TestCase
 
         $response->assertStatus(201)->assertJsonFragment([
             "message" => "Sukses membuat data komik",
-            "judul_komik" => "One Piece Vol 1",
+            "judul" => "One Piece Vol 1",
         ]);
 
         $this->assertDatabaseHas("komiks", [
@@ -125,7 +132,7 @@ class KomikApiTest extends TestCase
 
         $response->assertStatus(200)->assertJsonFragment([
             "message" => "Data komik berhasil diupdate",
-            "judul_komik" => "Judul Komik Terupdate",
+            "judul" => "Judul Komik Terupdate",
         ]);
 
         $this->assertDatabaseHas("komiks", [

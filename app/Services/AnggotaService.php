@@ -24,8 +24,8 @@ class AnggotaService implements AnggotaServiceInterface
     #[Override]
     public function updateAnggota(Anggota $anggota, array $data): Anggota
     {
-        $anggota->update($data);
-
+        $anggota->fill($data);
+        $anggota->save();
         return $anggota->fresh();
     }
 

@@ -71,7 +71,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di mesin lokal Anda:
 - **Week 2**: Migration, Factory & Seeder.
 - **Week 3**: Controller, Route, dan CRUD untuk `Kategori`, `Komik`, dan `Anggota`.
 - **Week 4**: Form Request, API Resource, dan Custom Exception Handling untuk `Anggota`.
-- _(Akan diupdate seiring berjalannya praktikum)_
+- **Capstone Project**: Implementasi Autentikasi API (Login/Logout), Fitur Peminjaman Komik, Pengembalian Komik, Validasi Stok, dan Unit Testing Menyeluruh.
 
 ## Dokumentasi & Hasil Tugas (Kriteria Penilaian)
 
@@ -116,6 +116,40 @@ Bagian ini berisi tangkapan layar (screenshot) sebagai bukti penyelesaian tugas 
   ![Hasil Store Sukses](.github/docs/store-success.png)
 - **Hasil Test Custom Exception Handling (404 Not Found):**
   ![Hasil Exception 404](.github/docs/404.png)
+
+### Capstone Project: Sistem Manajemen Peminjaman Komik dengan Autentikasi
+
+- **Hasil Keseluruhan Unit Test (38 Tests Passed):**
+  ![Hasil Unit Test](.github/docs/capstone/unit-test.png)
+- **Hasil Migrate & Seed:**
+  ![Hasil Migrate & Seed](.github/docs/capstone/migrate-seed.png)
+- **Hasil Route List API:**
+  ![Hasil Route List API](.github/docs/capstone/route-list.png)
+- **Hasil Test API Login:**
+  ![Test API Login](.github/docs/capstone/api-login.png)
+- **Hasil Test Akses Unauthorized:**
+  ![Unauthorized 1](.github/docs/capstone/unauthorized1.png)
+  ![Unauthorized 2](.github/docs/capstone/unauthorized2.png)
+  ![Unauthorized 3](.github/docs/capstone/unauthorized3.png)
+- **Hasil Test Get Data Komik & Success Response:**
+  ![Get Komik](.github/docs/capstone/get-komik.png)
+  ![Success Response](.github/docs/capstone/success-response.png)
+- **Hasil Cek Stok Komik (Sebelum Peminjaman):**
+  ![Stok Sebelum](.github/docs/capstone/komik-id1-sebelum-peminjaman.png)
+- **Hasil Proses Peminjaman Komik:**
+  ![Peminjaman Sukses](.github/docs/capstone/peminjaman-komikid1.png)
+- **Hasil Cek Stok Komik (Setelah Peminjaman - Stok Berkurang):**
+  ![Stok Berkurang](.github/docs/capstone/komik-id1-setelah-peminjaman.png)
+- **Hasil Get Data Peminjaman:**
+  ![Get Peminjaman](.github/docs/capstone/get-peminjaman.png)
+- **Hasil Validasi Peminjaman Gagal (Stok Kosong/0):**
+  ![Peminjaman Gagal Stok 0](.github/docs/capstone/peminjaman-komik-stok0.png)
+- **Hasil Proses Pengembalian Komik:**
+  ![Pengembalian Komik](.github/docs/capstone/peminjaman-komikid1-dikembalikan.png)
+- **Hasil Cek Stok Komik (Setelah Dikembalikan - Stok Bertambah Kembali):**
+  ![Stok Kembali](.github/docs/capstone/komik-id1-setelah-peminjaman-dikembalikan.png)
+- **Hasil Validasi Error Pengembalian 2 Kali:**
+  ![Pengembalian 2 Kali](.github/docs/capstone/peminjaman-komikid1-dikembalikan-2kali.png)
 
 ## Lisensi
 

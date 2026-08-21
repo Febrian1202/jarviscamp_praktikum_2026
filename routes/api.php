@@ -18,10 +18,10 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::apiResource('/komik', KomikController::class);
-    Route::apiResource('/kategori', KategoriController::class);
-    Route::apiResource('/anggota', AnggotaController::class);
-    Route::apiResource('/peminjaman', PeminjamanController::class);
+    Route::apiResource('/komik', KomikController::class)->parameters(['komik' => 'komik']);
+    Route::apiResource('/kategori', KategoriController::class)->parameters(['kategori' => 'kategori']);
+    Route::apiResource('/anggota', AnggotaController::class)->parameters(['anggota' => 'anggota']);
+    Route::apiResource('/peminjaman', PeminjamanController::class)->parameters(['peminjaman' => 'peminjaman']);
 
     Route::put('/peminjaman/{peminjaman}/kembali', [PeminjamanController::class, 'kembali']);
 });

@@ -13,7 +13,7 @@ class StorePeminjamanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +24,9 @@ class StorePeminjamanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "anggota_id" => ["required", "integer", "exists:anggota,id"], //|exists:anggota,id|exists:anggota,id"],
-            "komik_id" => ["required", "integer", "exists:komik,id"],
-            "tanggal_pinjam" =>  ["required", "date"],
-            "status" => ["required", "in:dipinjam,dikembalikan,telat"],
+            "anggota_id" => ["required", "integer", "exists:anggotas,id"], 
+            "komik_id" => ["required", "integer", "exists:komiks,id"],
+            "tanggal_peminjaman" =>  ["required", "date"],
         ];
     }
 
@@ -42,11 +41,8 @@ class StorePeminjamanRequest extends FormRequest
             "komik_id.required" => "ID Komik tidak boleh kosong",
             "komik_id.exists" => "ID Komik tidak valid",
 
-            "tanggal_pinjam.required" => "Tanggal Pinjam tidak boleh kosong",
-            "tanggal_pinjam.date" => "Tanggal Pinjam tidak valid",
-
-            "status.required" => "Status tidak boleh kosong",
-            "status.in" => "Status tidak valid",
+            "tanggal_peminjaman.required" => "Tanggal Pinjam tidak boleh kosong",
+            "tanggal_peminjaman.date" => "Tanggal Pinjam tidak valid",
         ];
     }
 }

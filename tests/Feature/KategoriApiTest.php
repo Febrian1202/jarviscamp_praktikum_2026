@@ -11,6 +11,13 @@ class KategoriApiTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        \App\Models\User::factory()->create();
+        $this->actingAs(\App\Models\User::first());
+    }
+
     public function test_can_get_all_kategori(): void
     {
         Kategori::factory()->count(3)->create();

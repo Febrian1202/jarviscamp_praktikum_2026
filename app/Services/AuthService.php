@@ -30,6 +30,6 @@ class AuthService implements AuthServiceInterface
 
     public function logout(User $user): void
     {
-        $user->tokens()->currentAccessToken()->delete();
+        $user->currentAccessToken()->delete();
     }
 }

@@ -63,7 +63,7 @@ class PeminjamanService implements PeminjamanServiceInterface
         return DB::transaction(function () use ($peminjaman) {
             $peminjaman->update([
                 'status' => 'dikembalikan',
-                'tanggal_kembali' => now()->toDateString(),
+                'tanggal_pengembalian' => now()->toDateString(),
             ]);
 
             Komik::find($peminjaman->komik_id)?->increment('stok');

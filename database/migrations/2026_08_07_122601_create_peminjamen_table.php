@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId("anggota_id")->constrained("anggotas")->cascadeOnDelete();
             $table->foreignId("komik_id")->constrained("komiks")->cascadeOnDelete();
             $table->date("tanggal_peminjaman");
-            $table->date("tanggal_pengembalian");
+            $table->date("tanggal_pengembalian")->nullable();
             $table
                 ->enum("status", ["dipinjam", "dikembalikan", "telat"])
                 ->default("dipinjam");
