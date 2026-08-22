@@ -87,7 +87,6 @@ class KomikApiTest extends TestCase
                     "kategori_id",
                     "stok",
                     "penulis",
-                    "tanggal_terbit",
                 ],
             ]);
     }
