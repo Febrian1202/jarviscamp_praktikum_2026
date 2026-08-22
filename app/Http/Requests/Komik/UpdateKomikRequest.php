@@ -30,7 +30,6 @@ class UpdateKomikRequest extends FormRequest
             "status" => ["sometimes", "string", "in:available,unavailable"],
             "file_pdf" => ["nullable", "file", "mimes:pdf", "max:2048"],
             "penulis" => ["sometimes", "string", "max:255", "min:1"],
-            "tanggal_terbit" => ["sometimes", "date"],
         ];
     }
 
@@ -61,8 +60,6 @@ class UpdateKomikRequest extends FormRequest
 
             "status.string" => "Status harus berupa string/karakter",
             "status.in" => "Status tidak valid",
-
-            "tanggal_terbit.date" => "Tanggal terbit harus berupa tanggal",
         ];
     }
 }

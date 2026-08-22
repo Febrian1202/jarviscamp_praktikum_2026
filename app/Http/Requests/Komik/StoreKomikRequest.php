@@ -30,7 +30,6 @@ class StoreKomikRequest extends FormRequest
             "penulis" => ["required", "string", "max:255", "min:1"],
             "file_pdf" => ["nullable", "file", "mimes:pdf", "max:2048"],
             "status" => ["sometimes", "string", "in:available,unavailable"],
-            "tanggal_terbit" => ["required", "date"],
         ];
     }
 
@@ -65,9 +64,6 @@ class StoreKomikRequest extends FormRequest
 
             "status.string" => "Status harus berupa string/karakter",
             "status.in" => "Status tidak valid",
-
-            "tanggal_terbit.required" => "Tanggal terbit harus diisi",
-            "tanggal_terbit.date" => "Tanggal terbit harus berupa tanggal",
         ];
     }
 }

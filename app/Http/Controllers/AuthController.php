@@ -15,18 +15,15 @@ class AuthController extends Controller
 
     public function login(LoginApiRequest $request)
     {
-        $data = $this->authService->login($request->only('email', 'password'));
+        $data = $this->authService->login($request->only("email", "password"));
 
-        return $this->successResponse(
-            $data,
-            'Login berhasil',
-        );
+        return $this->successResponse($data, "Login berhasil");
     }
 
     public function logout(Request $request)
     {
         $this->authService->logout($request->user());
 
-        return $this->successResponse(null, 'Logout berhasil.');
+        return $this->successResponse(null, "Logout berhasil.");
     }
 }

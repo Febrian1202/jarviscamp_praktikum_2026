@@ -17,15 +17,17 @@ class AuthService implements AuthServiceInterface
      */
     public function login(array $credentials): array
     {
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::where("email", $credentials["email"])->first();
 
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages(['email' => ['Email atau password salah.']]);
+        if (!$user || !Hash::check($credentials["password"], $user->password)) {
+            throw ValidationException::withMessages([
+                "email" => ["Email atau password salah."],
+            ]);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken("api-token")->plainTextToken;
 
-        return compact('user', 'token');
+        return compact("user", "token");
     }
 
     public function logout(User $user): void

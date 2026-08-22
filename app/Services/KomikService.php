@@ -6,6 +6,7 @@ use App\Interfaces\KomikServiceInterface;
 use App\Models\Komik;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Override;
 
 class KomikService implements KomikServiceInterface
@@ -35,6 +36,9 @@ class KomikService implements KomikServiceInterface
     public function updateKomik(Komik $komik, array $data): Komik
     {
         if (isset($data['file_pdf']) && $data['file_pdf'] instanceof UploadedFile && $data['file_pdf']->isValid()) {
+            if ($komik->file_pdf) {
+                Storage::disk('public')->delete($komik->file_pdf);
+            }
             $data['file_pdf'] = $data['file_pdf']->store('komiks', 'public');
         }
 
@@ -46,6 +50,10 @@ class KomikService implements KomikServiceInterface
     #[Override]
     public function deleteKomik(Komik $komik): void
     {
+        if ($komik->file_pdf) {
+            Storage::disk('public')->delete($komik->file_pdf);
+        }
+        
         $komik->delete();
     }
 }
